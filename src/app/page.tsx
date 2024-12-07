@@ -1,48 +1,36 @@
 "use client"
-import { useEffect, useState } from "react";
 import { Categorys } from "@/components/categorys";
 import { Header } from "@/components/header";
-import { Products } from "@/components/products";
-import api from "./api/route";
-import { ProductsProps } from "@/types/productsTypes";
+import { useProducts } from "./hooks/useProducts";
+import { Product } from "@/components/product";
 
 export default function Home() {
 
-  const [products, setProducts] = useState<ProductsProps[]>([])
-
-  useEffect(() => {
-    async function loadProducts() {
-      try {
-        const response = await api.get<ProductsProps[]>("products?limit=20")
-
-        setProducts(response.data)
-      }
-      catch (error) {
-        console.error("Erro ao carregar produtos:", error);
-      }
-    }
-
-    loadProducts()
-
-  }, []);
+  const { data: products, isLoading, error } = useProducts();
 
   return (
     <div>
       <Header />
       <Categorys />
 
-      <section className="flex flex-wrap my-12 px-20 gap-5 w-full justify-center">
-        {products.map((item) => (
-          <Products
-            key={item.id}
-            id={item.id}
-            title={item.title}
-            image={item.image}
-            price={item.price}
-            rating={item.rating}
-          />
-        ))}
-      </section>
+      {error && <p className="text-red-600">{error}</p>}
+      {isLoading ? (
+        <p className="text-center mt-20">Carregando produtos...</p>
+      ) : (
+        <section className="flex flex-wrap my-12 px-20 gap-5 w-full justify-center">
+          {products.map((item) => (
+            <Product
+              key={item.id}
+              id={item.id}
+              title={item.title}
+              image={item.image}
+              price={item.price}
+              rating={item.rating}
+              description={item.description}
+            />
+          ))}
+        </section>
+      )}
     </div>
   );
 }
