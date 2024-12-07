@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google"
 import "./globals.css";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
 
 
 const poppins = Poppins({
@@ -28,12 +30,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en" className={poppins.className}>
       <body
-        className={`${poppins.variable} ${poppins.variable} antialiased`}
+        className={`${poppins.variable} ${poppins.variable} overflow-x-hidden text-night bg-white antialiased flex-grow h-full`}
       >
+        <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

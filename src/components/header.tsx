@@ -6,34 +6,38 @@ import { Input } from "./ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { GoHeart } from "react-icons/go";
 import { PiShoppingCartSimple } from "react-icons/pi";
+import { Categorys } from "./categorys";
 
 export function Header() {
     return (
-        <header className="flex w-full items-center justify-around py-10">
-            <Link href="/" className="select-none">
-                <Logo />
-            </Link>
-            <div className="flex self-center gap-2">
-                <Input size={50} placeholder="Search your product" />
-                <Button color="var(--primary-green)">
-                    <FiSearch />
-                </Button>
-            </div>
-
-            <div className="flex items-center gap-6">
-                <Link href="#">
-                    <PiShoppingCartSimple size={30} />
+        <>
+            <header className="flex min-h-[150px] py-8 flex-wrap gap-4 w-full items-center justify-around">
+                <Link href="/" className="select-none">
+                    <Logo />
                 </Link>
+                <div className="flex px-4 self-center gap-2">
+                    <Input size={50} placeholder="Search your product" />
+                    <Button color="var(--primary-green)">
+                        <FiSearch />
+                    </Button>
+                </div>
 
-                <Link href="#">
-                    <GoHeart size={28} />
-                </Link>
+                <div className="flex items-center gap-6">
+                    <Link href="#">
+                        <PiShoppingCartSimple size={30} />
+                    </Link>
 
-                <Avatar className="w-[50px] h-[50px]">
-                    <AvatarImage src="https://i.pinimg.com/1200x/5d/cf/2d/5dcf2db15693c127637b8ca02bbb9597.jpg" alt="Avatar" />
-                    <AvatarFallback>JD</AvatarFallback>
-                </Avatar>
-            </div>
-        </header >
+                    <Link href="#">
+                        <GoHeart size={28} />
+                    </Link>
+
+                    <Avatar className="w-[50px] h-[50px]">
+                        <AvatarImage src="https://i.pinimg.com/1200x/5d/cf/2d/5dcf2db15693c127637b8ca02bbb9597.jpg" alt="Avatar" />
+                        <AvatarFallback>JD</AvatarFallback>
+                    </Avatar>
+                </div>
+            </header>
+            <Categorys />
+        </>
     );
 }
