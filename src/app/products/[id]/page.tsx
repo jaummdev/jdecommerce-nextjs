@@ -9,18 +9,16 @@ import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { GoHeart, GoHeartFill } from "react-icons/go";
 import { toast } from "sonner";
-import { LOCAL_STORAGE_CART_KEY, LOCAL_STORAGE_FAVORITE_KEY } from "@/lib/utils";
-import { useRouter } from "next/navigation";
-
+import { addToCart, LOCAL_STORAGE_FAVORITE_KEY } from "@/utils/cartUtils";
 
 export default function ProductDetails() {
+
     const pathname = usePathname();
     const id = pathname.split("/").pop(); // Extraindo o ID do final da URL
 
     // Estado inicial como null para lidar com o carregamento
     const [productId, setProductId] = useState<ProductsProps | null>(null);
     const [isFavorite, setIsFavorite] = useState(false)
-    const router = useRouter()
 
     useEffect(() => {
         if (id) {
@@ -64,23 +62,6 @@ export default function ProductDetails() {
         }
     };
 
-    const addToCart = () => {
-        if (!productId) return;
-
-        // Recuperar carrinho armazenados como array de números
-        const storedCart = localStorage.getItem(LOCAL_STORAGE_CART_KEY);
-        const cart: number[] = storedCart ? JSON.parse(storedCart) : [];
-
-        if (Array.isArray(cart) && cart.includes(productId.id)) {
-            toast.error("Error to add product in cart!")
-        } else {
-            // Adicionar ao carrinho
-            cart.push(productId.id);
-            localStorage.setItem(LOCAL_STORAGE_CART_KEY, JSON.stringify(cart));
-            router.push("/cart")
-        }
-    };
-
     // Verificação de produto inexistente ou em carregamento
     if (!productId) {
         return <div className="min-h-[350px] text-center py-20">Loading product...</div>;
@@ -117,7 +98,7 @@ export default function ProductDetails() {
 
                     <div className="flex flex-wrap items-center gap-2 mt-8">
                         <Button onClick={() => alert(`You buy ${productId.title}`)}>Buy</Button>
-                        <Button variant="outline" onClick={addToCart}>Add to cart</Button>
+                        <Button variant="outline" onClick={() => addToCart(productId.id)}>Add to cart</Button>
                         <span className="cursor-pointer" onClick={toggleFavorite}>
                             {isFavorite ? <GoHeartFill size={28} color="#008E5F" /> : <GoHeart size={28} color="#008E5F" />}
                         </span>

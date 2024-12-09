@@ -1,11 +1,11 @@
 "use client"
 
-import { Button } from "@/components/ui/button";
 import api from "../api/route";
-import { LOCAL_STORAGE_CART_KEY } from "@/lib/utils";
-import { ProductsProps } from "@/types/productsTypes";
 import { useEffect, useState } from "react";
+import { LOCAL_STORAGE_CART_KEY } from "@/utils/cartUtils";
+import { ProductsProps } from "@/types/productsTypes";
 import { toast } from "sonner";
+import { Button, handleClick } from "@/components/ui/button";
 
 export default function Cart() {
 
@@ -73,7 +73,7 @@ export default function Cart() {
     }
 
     return (
-        <div className="px-32 pb-16">
+        <div className="px-2 md:px-32 md:pb-16">
             <h1 className="text-2xl text-center font-bold my-10 text-primary-green">Your cart ({cart.length})</h1>
             <div className="flex flex-wrap justify-center gap-5">
                 <section className="flex flex-col pr-4 gap-6 max-w-[500px] max-h-[600px] overflow-y-auto">
@@ -88,9 +88,9 @@ export default function Cart() {
                                 className="flex w-16 object-contain"
                             />
                             <div className="flex flex-col w-full">
-                                <h2 className="text-lg font-normal">{product.title}</h2>
+                                <h2 className="text-sm sm:text-lg font-normal">{product.title}</h2>
 
-                                <div className="flex items-center justify-between gap-2 my-4">
+                                <div className="flex flex-wrap items-center justify-between gap-2 my-4">
                                     <p className="text-xl font-medium">${product.price}</p>
 
                                     <Button variant="outline" className="hover:bg-red-500 hover:text-ghost-white" onClick={() => removeItemCart(product.id)}>
@@ -103,7 +103,7 @@ export default function Cart() {
                     ))}
                 </section>
 
-                <section className="w-full flex flex-col max-w-[500px] px-14 py-10">
+                <section className="w-full flex flex-col max-w-[500px] px-4 sm:px-14 sm:py-10">
                     <div className="flex w-full justify-between my-2">
                         <h2 className="text-sm">Subtotal:</h2>
                         <p className="text-lg font-normal">$ {subtotal.toFixed(2)}</p>
@@ -116,7 +116,9 @@ export default function Cart() {
                         <h2 className="text-xl">Total:</h2>
                         <p className="text-3xl font-semibold text-primary-green">$ {total.toFixed(2)}</p>
                     </div>
-                    <Button>Checkout</Button>
+                    <Button onClick={handleClick}>
+                        Checkout
+                    </Button>
                 </section>
             </div>
         </div >

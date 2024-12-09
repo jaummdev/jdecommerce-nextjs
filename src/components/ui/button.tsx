@@ -3,6 +3,43 @@ import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
+import confetti from "canvas-confetti";
+import { LOCAL_STORAGE_CART_KEY } from "@/utils/cartUtils";
+
+export const handleClick = () => {
+  const end = Date.now() + 3 * 1000; // 3 seconds
+  const colors = ["#008E5F", "#586F7C", "#F3a1F9", "#A9D5B1"];
+
+  const frame = () => {
+    if (Date.now() > end) return;
+
+    confetti({
+      particleCount: 2,
+      angle: 60,
+      spread: 55,
+      startVelocity: 60,
+      origin: { x: 0, y: 0.5 },
+      colors: colors,
+    });
+    confetti({
+      particleCount: 2,
+      angle: 120,
+      spread: 55,
+      startVelocity: 60,
+      origin: { x: 1, y: 0.5 },
+      colors: colors,
+    });
+
+    requestAnimationFrame(frame);
+  };
+
+  frame();
+
+  setTimeout(() => {
+    localStorage.removeItem(LOCAL_STORAGE_CART_KEY)
+    window.location.reload()
+  }, 3000);
+};
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
@@ -36,7 +73,7 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  VariantProps<typeof buttonVariants> {
   asChild?: boolean
 }
 

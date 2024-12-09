@@ -4,14 +4,16 @@ import { useEffect, useState } from "react";
 import api from "@/app/api/route";
 import { ProductsProps } from "@/types/productsTypes";
 import { Button } from "@/components/ui/button";
-import { LOCAL_STORAGE_FAVORITE_KEY } from "@/lib/utils";
 import { toast } from "sonner";
 import { LuMinus } from "react-icons/lu";
 import { BsCartPlusFill } from "react-icons/bs";
+import { addToCart, LOCAL_STORAGE_FAVORITE_KEY } from "@/utils/cartUtils";
+import { useRouter } from "next/navigation";
 
 export default function Favorites() {
     const [favorites, setFavorites] = useState<ProductsProps[]>([]);
     const [loading, setLoading] = useState(true);
+    const router = useRouter()
 
     useEffect(() => {
         const fetchFavorites = async () => {
@@ -70,7 +72,7 @@ export default function Favorites() {
                         </div>
 
                         <div className="flex justify-center gap-2">
-                            <Button onClick={() => alert(`You buy ${product.title}!`)}>
+                            <Button onClick={() => addToCart(product.id)}>
                                 <BsCartPlusFill />
                                 Add to cart
                             </Button>
