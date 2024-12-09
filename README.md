@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# JDCommerce - E-commerce web app.
 
-## Getting Started
+## **Sobre o Projeto**
+Este é um aplicativo web de e-commerce moderno construído com **Next.js**, projetado para oferecer uma experiência de "compra" amigável, responsiva e rápida. Ele permite que os usuários naveguem por produtos, adicionem itens ao carrinho, gerenciem favoritos e finalizem suas compras com "facilidade".
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## **Funcionalidades Principais**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Listagem de Produtos:** Exibe produtos com detalhes, imagens, e avaliações.
+- **Detalhes do Produto:** Página dedicada para exibir informações completas de um produto específico.
+- **Adicionar ao Carrinho:** Permite adicionar produtos ao carrinho de compras e visualizar uma página dedicada para gerenciá-los.
+- **Favoritos:** Usuários podem marcar produtos como favoritos para acessá-los mais tarde.
+- **Design Responsivo:** Interface amigável para dispositivos móveis e desktop.
+- **Carregamento Rápido:** Utiliza recursos de otimização do Next.js para uma navegação ágil.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## **Tecnologias Utilizadas**
 
-## Learn More
+### **Frontend:**
+- **[Next.js](https://nextjs.org/):** Framework React para aplicações rápidas e escaláveis.
+- **[TailwindCSS](https://tailwindcss.com/):** Estilização responsiva e eficiente.
+- **[Shadcn](https://ui.shadcn.com/):** Para UI de alguns itens do site.
+- **Icones:** Biblioteca como `react-icons` para uma interface mais rica.
 
-To learn more about Next.js, take a look at the following resources:
+### **Backend (Simulado):**
+- [**FakeStore API:**](https://fakestoreapi.com/docs) API de produtos fakes retornando em JSON, com todos os dados necessários para construir uma aplicação de exemplo ou para estudos !!
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### **Outros:**
+- **LocalStorage:** Persistência de dados para carrinho e favoritos no navegador.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## **Contato**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Se você tiver alguma dúvida ou sugestão, sinta-se à vontade para me contatar através das minhas redes sociais:
+
+### <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Hand%20gestures/Backhand%20Index%20Pointing%20Right.png" alt="Backhand Index Pointing Right" width="25" height="25" /> Instagram: [@jaumm.c](https://instagram.com/jaumm.c)
+
+Feito com ❤️ por [Jaumm Dev.](https://www.jaummdev.com.br)
