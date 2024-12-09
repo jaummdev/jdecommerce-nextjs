@@ -10,9 +10,9 @@ export default function Home() {
     <div>
       {error && <p className="text-red-600">{error}</p>}
       {isLoading ? (
-        <p className="text-center py-20">Carregando produtos...</p>
+        <p className="min-h-[350px] text-center py-20">Loading products...</p>
       ) : (
-        <section className="flex flex-wrap my-12 px-20 gap-5 w-full justify-center">
+        <section className="flex flex-wrap my-12 md:px-20 gap-0 sm:gap-6 pb-10 w-full justify-center">
           {products.map((item) => (
             <Product
               key={item.id}

@@ -7,8 +7,11 @@ import { RiStarSFill } from "react-icons/ri";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { GoHeart, GoHeartFill } from "react-icons/go";
+import { toast } from "sonner";
+import { LOCAL_STORAGE_CART_KEY, LOCAL_STORAGE_FAVORITE_KEY } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+
 
 export default function ProductDetails() {
     const pathname = usePathname();
@@ -16,7 +19,8 @@ export default function ProductDetails() {
 
     // Estado inicial como null para lidar com o carregamento
     const [productId, setProductId] = useState<ProductsProps | null>(null);
-    const [favorite, setFavorite] = useState<boolean>(false)
+    const [isFavorite, setIsFavorite] = useState(false)
+    const router = useRouter()
 
     useEffect(() => {
         if (id) {
@@ -26,9 +30,60 @@ export default function ProductDetails() {
         }
     }, [id]);
 
+    useEffect(() => {
+        // Verificar se o produto atual está nos favoritos
+        const storedFavorites = localStorage.getItem(LOCAL_STORAGE_FAVORITE_KEY)
+        const favorites = storedFavorites ? JSON.parse(storedFavorites) : [];
+
+        if (Array.isArray(favorites)) {
+            setIsFavorite(favorites.includes(Number(id)));
+        } else {
+            console.log("Favoritos armazenados não são um Array: ", favorites)
+        }
+    }, [id]);
+
+    const toggleFavorite = () => {
+        if (!productId) return;
+
+        // Recuperar favoritos armazenados como array de números
+        const storedFavorites = localStorage.getItem(LOCAL_STORAGE_FAVORITE_KEY);
+        const favorites: number[] = storedFavorites ? JSON.parse(storedFavorites) : [];
+
+        if (Array.isArray(favorites) && favorites.includes(productId.id)) {
+            // Remover dos favoritos
+            const updatedFavorites = favorites.filter((favId) => favId !== productId.id);
+            localStorage.setItem(LOCAL_STORAGE_FAVORITE_KEY, JSON.stringify(updatedFavorites));
+            setIsFavorite(false);
+            toast.success("Product removed from favorites !!")
+        } else {
+            // Adicionar aos favoritos
+            favorites.push(productId.id);
+            localStorage.setItem(LOCAL_STORAGE_FAVORITE_KEY, JSON.stringify(favorites));
+            setIsFavorite(true);
+            toast.success("Product added to favorites !!")
+        }
+    };
+
+    const addToCart = () => {
+        if (!productId) return;
+
+        // Recuperar carrinho armazenados como array de números
+        const storedCart = localStorage.getItem(LOCAL_STORAGE_CART_KEY);
+        const cart: number[] = storedCart ? JSON.parse(storedCart) : [];
+
+        if (Array.isArray(cart) && cart.includes(productId.id)) {
+            toast.error("Error to add product in cart!")
+        } else {
+            // Adicionar ao carrinho
+            cart.push(productId.id);
+            localStorage.setItem(LOCAL_STORAGE_CART_KEY, JSON.stringify(cart));
+            router.push("/cart")
+        }
+    };
+
     // Verificação de produto inexistente ou em carregamento
     if (!productId) {
-        return <div className="text-center py-20">Carregando...</div>;
+        return <div className="min-h-[350px] text-center py-20">Loading product...</div>;
     }
 
     return (
@@ -47,19 +102,24 @@ export default function ProductDetails() {
 
                 {/* Detalhes do Produto */}
                 <div className="max-w-[500px] pb-10">
-                    <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl font-normal">{productId.title}</h1>
+                    <h1 className="text-md sm:text-lg md:text-xl font-normal">{productId.title}</h1>
                     <h2 className="text-3xl mt-2 font-medium">$ {productId.price}</h2>
-                    <div className="flex items-center mt-4">
+                    <div className="flex items-center mt-4 gap-1">
                         <RiStarSFill color="gold" size={25} />
-                        <span className="ml-2">{productId.rating?.rate} ({productId.rating?.count})</span>
+                        <span className="font-medium">
+                            {productId.rating?.rate}
+                        </span>
+                        <span className="text-primary-green">
+                            ({productId.rating?.count})
+                        </span>
                     </div>
-                    <p className="text-sm sm:text-md md:text-base mt-4">{productId.description}</p>
+                    <p className="text-xs sm:text-sm md:text-md mt-4">{productId.description}</p>
 
                     <div className="flex flex-wrap items-center gap-2 mt-8">
-                        <Button onClick={() => alert("Você comprou!")}>Comprar</Button>
-                        <Button variant="outline" onClick={() => alert("Você adicionou ao carrinho!")}>Adicionar ao carrinho</Button>
-                        <span className="cursor-pointer" onClick={() => setFavorite(!favorite)}>
-                            {favorite ? <GoHeartFill size={28} color="#008E5F" /> : <GoHeart size={28} color="#008E5F" />}
+                        <Button onClick={() => alert(`You buy ${productId.title}`)}>Buy</Button>
+                        <Button variant="outline" onClick={addToCart}>Add to cart</Button>
+                        <span className="cursor-pointer" onClick={toggleFavorite}>
+                            {isFavorite ? <GoHeartFill size={28} color="#008E5F" /> : <GoHeart size={28} color="#008E5F" />}
                         </span>
                     </div>
                 </div>
