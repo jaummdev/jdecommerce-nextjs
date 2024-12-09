@@ -50,7 +50,7 @@ export default function Favorites() {
     }
 
     if (favorites.length === 0) {
-        return <div className="min-h-[350px] text-center py-20">You haven't added products to favorites yet.</div>;
+        return <div className="min-h-[350px] text-center py-20">You have not added products to favorites yet.</div>;
     }
 
     return (
