@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import api from "@/app/api/route";
 import { ProductsProps } from "@/types/productsTypes";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { LuMinus } from "react-icons/lu";
 import { BsCartPlusFill } from "react-icons/bs";
 import { addToCart, LOCAL_STORAGE_FAVORITE_KEY } from "@/utils/cartUtils";
+import api from "@/utils/axiosInstance";
 
 export default function Favorites() {
     const [favorites, setFavorites] = useState<ProductsProps[]>([]);

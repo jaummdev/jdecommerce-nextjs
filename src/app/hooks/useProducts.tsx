@@ -1,6 +1,6 @@
-import api from "@/app/api/route";
 import { useState, useEffect } from "react";
 import { ProductsProps } from "@/types/productsTypes";
+import api from "@/utils/axiosInstance";
 
 export function useProducts(limit?: number) {
     const [data, setData] = useState<ProductsProps[]>([]);

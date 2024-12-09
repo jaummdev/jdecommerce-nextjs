@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import api from "@/app/api/route";
 import { ProductsProps } from "@/types/productsTypes";
 import { RiStarSFill } from "react-icons/ri";
 import { useEffect, useState } from "react";
@@ -10,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { GoHeart, GoHeartFill } from "react-icons/go";
 import { toast } from "sonner";
 import { addToCart, LOCAL_STORAGE_FAVORITE_KEY } from "@/utils/cartUtils";
+import api from "@/utils/axiosInstance";
 
 export default function ProductDetails() {
 

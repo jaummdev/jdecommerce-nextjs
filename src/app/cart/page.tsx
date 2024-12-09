@@ -1,11 +1,11 @@
 "use client"
 
-import api from "../api/route";
 import { useEffect, useState } from "react";
 import { LOCAL_STORAGE_CART_KEY } from "@/utils/cartUtils";
 import { ProductsProps } from "@/types/productsTypes";
 import { toast } from "sonner";
 import { Button, handleClick } from "@/components/ui/button";
+import api from "@/utils/axiosInstance";
 
 export default function Cart() {
 
